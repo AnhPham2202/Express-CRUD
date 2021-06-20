@@ -1,23 +1,24 @@
 const express = require('express');
 
 const studentRoute = express()
+studentRoute.use(express.json())
 
-studentRoute.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-studentRoute.get('/demo', (req, res) => {
-    res.send('demo!')
-})
+// studentRoute.get('/', (req, res) => {
+//     res.send('Hello World!')
+// })
+// studentRoute.get('/demo', (req, res) => {
+//     res.send('demo!')
+// })
 //create api user management
 const userList = [
     {id: 1, name: "name 1", email: "email 1"},
     {id: 2, name: "name 2", email: "email 2"},
 ]
-studentRoute.get('/api/user', (req, res) => {
+studentRoute.get('/', (req, res) => {
     res.send(userList)
 })
 // lay chi tiet nguoi dung (can id)
-studentRoute.get('/api/user/:id', (req, res) => {
+studentRoute.get('/:id', (req, res) => {
     const {id} = req.params;
     const user = userList.find(user => user.id == id)
     if(user){
@@ -30,7 +31,7 @@ studentRoute.get('/api/user/:id', (req, res) => {
 // method: POST 
 // urrl: http://localhost.com/api/user
 // body: {name, email}
-studentRoute.post('/api/user', (req, res) => {
+studentRoute.post('/', (req, res) => {
     const {name, email} = req.body
     const newUser = {
         id: Math.random().toString(), name , email
@@ -40,7 +41,7 @@ studentRoute.post('/api/user', (req, res) => {
     res.send(newUser)
 })
 // API xóa người dùng
-studentRoute.delete('/api/user/:id', (req, res) => {
+studentRoute.delete('/:id', (req, res) => {
     const { id } = req.params;
     const index = userList.findIndex( user => user.id == id)
 
@@ -55,7 +56,7 @@ studentRoute.delete('/api/user/:id', (req, res) => {
     }
 })
 // update moi user 
-studentRoute.put('/api/user/:id', (req, res) => {
+studentRoute.put('/:id', (req, res) => {
     const { id } = req.params;
     const { name, email }= req.body;
     const index = userList.findIndex( user => user.id == id)

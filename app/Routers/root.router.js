@@ -2,6 +2,6 @@ const express = require('express')
 const studentRoute = require('./student.router')
 const router = express();
 
-router.use(studentRoute)
+router.use('/api/user',studentRoute)
 
 module.exports = router
